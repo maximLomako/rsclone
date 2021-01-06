@@ -7,7 +7,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@material-ui/icons";
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
-type TodolistsType = {
+export type TodolistsType = {
   id: string
   title: string
   filter: FilterValuesType
@@ -99,7 +99,7 @@ const App = () => {
             <Menu/>
           </IconButton>
           <Typography variant="h6">
-            News
+            rsClone
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

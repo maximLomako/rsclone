@@ -12,7 +12,7 @@ export type TasksType = {
   title: string
   isDone: boolean
 }
-type TodolistPropsType = {
+export type TodolistPropsType = {
   id: string
   title: string
   filter: FilterValuesType
