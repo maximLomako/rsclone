@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {FilterValuesType} from "../../App";
+import {FilterValuesType} from "../Dashboard/Dashboard";
 import s from './todolist.module.css'
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
