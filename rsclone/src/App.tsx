@@ -1,17 +1,11 @@
 import React from "react";
-import Dashboard from "./components/Dashboard/Dashboard";
 import Login from "./components/Login/Login";
-import Loading from "./components/Loading/Loading";
+import Preloader from "./components/Preloader/Preloader";
 import "./App.css";
-import {
-  AppBar,
-  Container,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
-import { Route, NavLink } from "react-router-dom";
+import {AppBar, Container, IconButton, Toolbar, Typography,} from "@material-ui/core";
+import {Menu} from "@material-ui/icons";
+import {NavLink, Route} from "react-router-dom";
+import DashboardWithReducers from "./components/Dashboard/DashboardWithReducers";
 
 const App = () => {
   return (
@@ -29,8 +23,8 @@ const App = () => {
       </AppBar>
       <Container fixed>
         <Route color="inherit" path={"/login"} component={Login} />
-        <Route color="inherit" path={"/dashboard"} component={Dashboard} />
-        <Route color="inherit" path={"/loading"} component={Loading} />
+        <Route color="inherit" path={"/dashboard"} component={DashboardWithReducers} />
+        <Route color="inherit" path={"/loading"} component={Preloader} />
       </Container>
     </div>
   );

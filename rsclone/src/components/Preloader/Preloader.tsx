@@ -1,6 +1,6 @@
 import loading from "../../assets/images/loading.svg";
 
-const Loading = () => {
+const Preloader = () => {
   return (
     <div className="loading">
       <img src={loading} className="loading" alt="logo" />
@@ -9,4 +9,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default Preloader;
