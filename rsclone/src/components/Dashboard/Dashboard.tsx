@@ -40,7 +40,6 @@ const Dashboard = () => {
     const changeTaskTitle = (taskId: string, newTitle: string, todolistId: string) => {
       dispatch(changeTaskTitleAC(taskId, newTitle, todolistId));
     }
-
     const changeFilter = (value: FilterValuesType, todolistId: string) => {
       dispatch(changeTodolistFilterAC(value, todolistId));
     }
