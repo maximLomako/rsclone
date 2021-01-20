@@ -5,7 +5,7 @@ import "./App.css";
 import {AppBar, Container, IconButton, Toolbar, Typography,} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {NavLink, Route} from "react-router-dom";
-import DashboardWithReducers from "./components/Dashboard/DashboardWithReducers";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
       </AppBar>
       <Container fixed>
         <Route color="inherit" path={"/login"} component={Login} />
-        <Route color="inherit" path={"/dashboard"} component={DashboardWithReducers} />
+        <Route color="inherit" path={"/dashboard"} component={Dashboard} />
         <Route color="inherit" path={"/loading"} component={Preloader} />
       </Container>
     </div>
