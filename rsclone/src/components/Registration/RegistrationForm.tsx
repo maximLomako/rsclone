@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { BrowserRouter as Route, NavLink, useHistory } from "react-router-dom";
 import { httpPost } from "../../utils";
 
 type FormValues = {
@@ -9,6 +10,8 @@ type FormValues = {
 };
 
 const RegistrationForm = () => {
+    let history = useHistory();
+
   const [fetchError, setFetchError] = useState(false);
 
   const { register, handleSubmit, errors } = useForm<FormValues>();
@@ -18,10 +21,11 @@ const RegistrationForm = () => {
       email: data.email,
       password: data.password,
     };
-    httpPost(`auth/registration/`, updateData)
+    httpPost(`/auth/registration`, updateData)
       .then((post) => {
         if (post.statusCode === 200) {
           localStorage.setItem("token", post.token);
+          history.push("/dashboard")
           setFetchError(false);
         } else {
           setFetchError(true);

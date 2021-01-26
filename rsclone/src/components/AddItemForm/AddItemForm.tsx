@@ -1,9 +1,10 @@
 import {IconButton, TextField} from "@material-ui/core";
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {ControlPoint} from "@material-ui/icons";
+import { ControlPoint } from "@material-ui/icons";
+
 
 type AddItemFormPropsTYpe = {
-  addItem: (title: string) => void
+  addItem: (title: any) => void
 }
 
 export const AddItemForm: React.FC<AddItemFormPropsTYpe> = (props) => {
@@ -19,7 +20,7 @@ export const AddItemForm: React.FC<AddItemFormPropsTYpe> = (props) => {
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     const {key} = e;
     if (key === 'Enter') {
-      addItem(newTaskTitle);
+      addItem(newTaskTitle.trim());
       setNewTaskTitle('');
     }
   };
@@ -28,7 +29,7 @@ export const AddItemForm: React.FC<AddItemFormPropsTYpe> = (props) => {
       setError('Title is required');
       return;
     }
-    addItem(newTaskTitle.trim());
+      addItem(newTaskTitle.trim());
     setNewTaskTitle('');
   };
   return (
@@ -45,7 +46,7 @@ export const AddItemForm: React.FC<AddItemFormPropsTYpe> = (props) => {
         helperText={error}
       />
       <IconButton
-        onClick={addTaskHandler}>
+        onClick={()=>addTaskHandler()}>
         <ControlPoint color="primary"/>
       </IconButton>
 

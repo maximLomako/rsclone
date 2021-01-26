@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { httpPost } from "../../utils";
+import { BrowserRouter as Route, NavLink, useHistory } from "react-router-dom";
 
 type FormValues = {
   email: string;
@@ -8,6 +9,7 @@ type FormValues = {
 };
 
 const LoginForm = () => {
+    let history = useHistory();
   const [fetchError, setFetchError] = useState(false);
 
   const { register, handleSubmit, errors } = useForm<FormValues>();
@@ -16,10 +18,12 @@ const LoginForm = () => {
       email: data.email,
       password: data.password,
     };
-    httpPost(`auth/login/`, updateData)
+    httpPost(`/auth/login`, updateData)
       .then((post) => {
+        console.log(post)
         if (post.statusCode === 200) {
           localStorage.setItem("token", post.token);
+          history.push("/dashboard")
           setFetchError(false);
         } else {
           setFetchError(true);
@@ -29,7 +33,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="email"
         placeholder="Электронный адрес"
@@ -53,7 +57,7 @@ const LoginForm = () => {
       {errors.password && errors.password.type === "required" && (
         <p>Обязательное поле</p>
       )}
-      <button className="sign-in-submit" type="submit">
+      <button className="login-submit" type="submit">
         Login
       </button>
       {fetchError ? <p>Неверный логин или пароль</p> : <></>}
