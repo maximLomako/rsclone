@@ -1,89 +1,89 @@
-import {FilterValuesType, TodolistsType} from "../components/Dashboard/Dashboard";
-import {v1} from "uuid";
+import { TodolistsType } from "../components/Dashboard/Dashboard";
+import { v1 } from "uuid";
 
-export type RemoveTodolistActionType = {
-  type: 'REMOVE-TODOLIST'
-  id: string
-}
-
-export type AddTodolistActionType = {
-  type: 'ADD-TODOLIST'
-  title: string
-  todolistId: string
-}
-
-export type ChangeTodolistTitleActionType = {
-  type: 'CHANGE-TODOLIST-TITLE'
-  id: string
-  title: string
-}
-
-export type ChangeTodolistFilter = {
-  type: 'CHANGE-TODOLIST-FILTER',
-  id: string
-  filter: FilterValuesType
-}
-
+type RemoveTodolistActionType = {
+  type: "REMOVE-TODOLIST";
+  todo_id: string;
+};
+type AddTodolistActionType = {
+  type: "ADD-TODOLIST";
+  title: string;
+  todo_id: string;
+};
+type ChangeTodolistActionType = {
+  type: "CHANGE-TODOLIST";
+  todo_id: string;
+  updatedProps: any;
+};
 type ActionsType =
-  RemoveTodolistActionType
+  | RemoveTodolistActionType
   | AddTodolistActionType
-  | ChangeTodolistTitleActionType
-  | ChangeTodolistFilter
+  | ChangeTodolistActionType;
 
 export const todolistId1 = v1();
 export const todolistId2 = v1();
 
 const initialState: Array<TodolistsType> = [
-  {id: todolistId1, title: 'Whats to lear', filter: 'all'},
-  {id: todolistId2, title: 'What to do', filter: 'all'}
-]
-export const todolistsReducer = (state: Array<TodolistsType> = initialState, action: ActionsType): Array<TodolistsType> => {
+  {
+    todo_id: todolistId1,
+    title: "Whats to lear",
+    filter: "all",
+    isDone: false,
+    tasks: [],
+  },
+  {
+    todo_id: todolistId2,
+    title: "What to do",
+    filter: "all",
+    isDone: false,
+    tasks: [],
+  },
+];
+export const todolistsReducer = (
+  state: Array<TodolistsType> = initialState,
+  action: ActionsType
+): Array<TodolistsType> => {
   switch (action.type) {
-    case 'REMOVE-TODOLIST': {
-      return state.filter(tl => tl.id !== action.id);
+    case "REMOVE-TODOLIST": {
+      return state.filter((tl) => tl.todo_id !== action.todo_id);
     }
-    case 'ADD-TODOLIST': {
-      return [{
-        id: action.todolistId,
-        title: action.title,
-        filter: "all"
-      }, ...state]
+    case "ADD-TODOLIST": {
+      return [
+        {
+          todo_id: action.todo_id,
+          title: action.title,
+          filter: "all",
+          isDone: false,
+          tasks: [],
+        },
+        ...state,
+      ];
     }
-    case 'CHANGE-TODOLIST-TITLE': {
-      const todolist = state.find(tl => tl.id === action.id)
+    case "CHANGE-TODOLIST": {
+      const todolist = state.find((tl) => tl.todo_id === action.todo_id);
       if (todolist) {
-        todolist.title = action.title
+        todolist.title = action.updatedProps;
       }
-      return [...state]
-    }
-    case 'CHANGE-TODOLIST-FILTER': {
-      const todolist = state.find(tl => tl.id === action.id)
-      if (todolist) {
-        todolist.filter = action.filter
-      }
-      return [...state]
+      return [...state];
     }
   }
-    return state;
-}
-
-export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-  return {type: 'REMOVE-TODOLIST', id: todolistId}
-}
+  return state;
+};
+export const removeTodolistAC = (
+  todolistId: string
+): RemoveTodolistActionType => {
+  return { type: "REMOVE-TODOLIST", todo_id: todolistId };
+};
 export const addTodolistAC = (title: string): AddTodolistActionType => {
-  return {type: 'ADD-TODOLIST', title: title, todolistId: v1()}
-}
-export const changeTodolistTitleAC = (todolistId: string, todolistTitle: string): ChangeTodolistTitleActionType => {
+  return { type: "ADD-TODOLIST", title: title, todo_id: v1() };
+};
+export const changeTodolistAC = (
+  todo_id: string,
+  updatedProps: any
+): ChangeTodolistActionType => {
   return {
-    type: 'CHANGE-TODOLIST-TITLE',
-    id: todolistId,
-    title: todolistTitle
-  }
-}
-export const changeTodolistFilterAC = (newFilter: FilterValuesType, todolistId: string): ChangeTodolistFilter => {
-  return {
-    type: 'CHANGE-TODOLIST-FILTER',
-    id: todolistId,
-    filter: newFilter
-  }
-}
+    type: "CHANGE-TODOLIST",
+    todo_id: todo_id,
+    updatedProps: updatedProps,
+  };
+};

@@ -1,14 +1,15 @@
-import {combineReducers, createStore} from 'redux';
-import {tasksReducer} from "./tasks-reducer";
-import {todolistsReducer} from "./todolists-reducer";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { todolistsReducer } from "./todolists-reducer";
+import { authReducer } from "./auth-reducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
-  todolist: todolistsReducer,
-  tasks: tasksReducer
-})
+  userInfo: authReducer,
+  todolists: todolistsReducer,
+});
 
 export type DashboardRootState = ReturnType<typeof rootReducer>;
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // @ts-ignore
 window.store = store;
