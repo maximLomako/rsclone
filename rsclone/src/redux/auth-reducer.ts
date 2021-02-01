@@ -19,7 +19,7 @@ export type UserInfoType = {
 type ActionsType = AuthUserActionType | LogoutUserActionType;
 
 const initialState = {
-  userInfo: {},
+  userInfo: {statusCode:401},
 };
 export const authReducer = (
   state = initialState,
@@ -27,13 +27,13 @@ export const authReducer = (
 ): Array<UserInfoType> => {
   switch (action.type) {
     case "SET-USER-INFO": {
-      return { ...state, userInfo:action.userInfo };
+      return { ...state, userInfo: action.userInfo };
     }
     case "LOGOUT-USER": {
-      return { ...state };
+      return { ...state, userInfo: action.userInfo };
     }
   }
-    return state;
+  return state;
 };
 
 export const authUserAC = () => {
@@ -42,8 +42,8 @@ export const authUserAC = () => {
       .then((userInfo) => {
         dispatch(setUserInfoAC(userInfo));
       })
-      .catch((data) => {
-        console.log(data);
+      .catch((e) => {
+        console.log(e);
       });
   };
 };
@@ -56,5 +56,6 @@ export const setUserInfoAC = (userInfo: UserInfoType): AuthUserActionType => {
 export const logoutUserAC = (): LogoutUserActionType => {
   return {
     type: "LOGOUT-USER",
+    userInfo: {statusCode:401},
   };
 };

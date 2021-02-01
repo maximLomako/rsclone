@@ -1,0 +1,24 @@
+a {
+  color: inherit;
+  padding: 0 10px;
+}
+div.left-menu {
+  display: flex;
+}
+div.right-menu {
+  display: flex;
+}
+body div footer > div {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__logo-img {
+  width: 100px;
+  cursor: pointer;
+}
+.footer__authors {
+  display: flex;
+}
+.footer-list {
+  margin-left: 10px;
+}

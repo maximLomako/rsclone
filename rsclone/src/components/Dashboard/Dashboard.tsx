@@ -3,6 +3,12 @@ import { TasksType } from "../Todolist/Todolist";
 import Todolist from "../Todolist/Todolist";
 import { AddItemForm } from "../AddItemForm/AddItemForm";
 import { Grid, Paper } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUserAC } from "../../redux/auth-reducer";
+import Preloader from "../Preloader/Preloader";
+import useStyles from "./DashboardClasses";
+import Typography from "@material-ui/core/Typography";
 import {
   httpGet,
   httpPost,
@@ -10,7 +16,6 @@ import {
   httpDelete,
   mergeArrays,
 } from "../../utils";
-import Preloader from "../Preloader/Preloader";
 
 export type FilterValuesType = "all" | "completed" | "active";
 export type TodolistsType = {
@@ -26,70 +31,111 @@ export type TasksStateType = {
 
 const Dashboard = () => {
   const [todolists, setTodolists] = useState<Array<TodolistsType>>([]);
-  const [todolistLoading, setTodolistLoading] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const dashboardClasses = useStyles();
 
-  const addTodolist = async (title: string) => {
-    await setTodolistLoading(true);
+  const addTodolist = (title: string) => {
+    setIsFetching(true);
     httpPost(`/todos`, { title: title })
       .then((post) => {
+        //@ts-ignore
         setTodolists([...todolists, post]);
       })
-      .catch((post) => {
-        console.log(post);
+      .catch((error) => {
+        //@ts-ignore
+        if (error.statusCode === 403) {
+          setMessage("Login or Registrate for use dashboard");
+          dispatch(logoutUserAC());
+        } else {
+          setMessage("Server error, please try later");
+        }
       })
       //@ts-ignore
-      .then(setTodolistLoading(false));
+      .finally(() => setIsFetching(false));
   };
-  const changeTodolist = async (todo_id: string, updatedProps: any) => {
-    await setTodolistLoading(true);
+  const changeTodolist = (todo_id: string, updatedProps: any) => {
     const changedElement = todolists.filter((el) => el.todo_id === todo_id);
     //@ts-ignore
     changedElement[0][`${Object.keys(updatedProps)}`] = Object.values(
       updatedProps
     ).toString();
+    setIsFetching(true);
     httpPut(`/todos/${todo_id}`, updatedProps)
       .then(() => {
         setTodolists(mergeArrays(todolists, changedElement));
       })
-      .catch((post) => {
-        console.log(post);
+      .catch((error) => {
+        //@ts-ignore
+        if (error.statusCode === 403) {
+          setMessage("Login or Registrate for use dashboard");
+          dispatch(logoutUserAC());
+        } else {
+          setMessage("Server error, please try later");
+        }
       })
       //@ts-ignore
-      .then(setTodolistLoading(false));
+      .finally(() => setIsFetching(false));
   };
-  const removeTodolist = async (todo_id: string) => {
-    await setTodolistLoading(true);
-    setTodolistLoading(true);
+  const removeTodolist = (todo_id: string) => {
+    setIsFetching(true);
     httpDelete(`/todos/${todo_id}`)
       .then(() => {
         setTodolists(todolists.filter((el) => el.todo_id !== todo_id));
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        //@ts-ignore
+        if (error.statusCode === 403) {
+          setMessage("Login or Registrate for use dashboard");
+          dispatch(logoutUserAC());
+        } else {
+          setMessage("Server error, please try later");
+        }
       })
       //@ts-ignore
-      .then(setTodolistLoading(false));
+      .finally(setIsFetching(false));
   };
   useEffect(() => {
-    setTodolistLoading(true);
+    setIsFetching(true);
     httpGet("/todos")
       .then((post) => {
+        //@ts-ignore
         setTodolists(post);
       })
-      .catch((post) => {
-        console.log(post);
+      //@ts-ignore
+      .catch((error) => {
+        //@ts-ignore
+        if (error.statusCode === 403) {
+          setMessage("Login or Registrate for use dashboard");
+          dispatch(logoutUserAC());
+        } else {
+          setMessage("Server error, please try later");
+        }
       })
       //@ts-ignore
-      .then(setTodolistLoading(false));
-  }, []);
-  return todolistLoading ? (
+      .finally(() => setIsFetching(false));
+  }, [history, dispatch]);
+
+  return isFetching ? (
     <Preloader />
   ) : (
-    <div className="Dashboard">
-      <Grid container style={{ padding: "20px" }}>
-        <AddItemForm addItem={addTodolist} />
-      </Grid>
-      <Grid container spacing={3}>
+    <div className={dashboardClasses.dashboard}>
+      {todolists.length > 0 ? (
+        <Grid className={dashboardClasses.addForm} container>
+          <AddItemForm addItem={addTodolist} />
+        </Grid>
+      ) : (
+        <Typography
+          className={dashboardClasses.typography}
+          component="h2"
+          variant="h3"
+        >
+          {message}
+        </Typography>
+      )}
+      <Grid className={dashboardClasses.cards} container spacing={3}>
         {todolists.map((tl) => {
           return (
             <Grid key={tl.todo_id} item>

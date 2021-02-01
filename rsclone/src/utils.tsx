@@ -1,29 +1,18 @@
 import { hosting } from "../src/constants/urls";
 
-export const httpGet = (path:string) => {
-  return fetch(`${hosting}${path}`,{
-      method: "GET",
-      //@ts-ignore
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      }
-    }).then(awaitForJsonResponse);
+export const httpGet = (path: string) => {
+  return fetch(`${hosting}${path}`, {
+    method: "GET",
+    //@ts-ignore
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then(awaitForJsonResponse)
 };
 
-export const httpPost = (path:string, params:any)=> {
-    return fetch(`${hosting}${path}`, {
-      method: "POST",
-      //@ts-ignore
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-      body: JSON.stringify(params),
-    }).then(awaitForJsonResponse);
-};
-
-export const httpPostTest = (path: string) => {
+export const httpPost = (path: string, params: any) => {
   return fetch(`${hosting}${path}`, {
     method: "POST",
     //@ts-ignore
@@ -31,19 +20,22 @@ export const httpPostTest = (path: string) => {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
     },
-  }).then(awaitForJsonResponse);
+    body: JSON.stringify(params),
+  })
+    .then(awaitForJsonResponse)
 };
 
 export const httpPut = (path: string, params: any) => {
   return fetch(`${hosting}${path}`, {
     method: "PUT",
-        //@ts-ignore
+    //@ts-ignore
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
     },
     body: JSON.stringify(params),
-  }).then(awaitForJsonResponse);
+  })
+    .then(awaitForJsonResponse)
 };
 
 export const httpDelete = (path: string) => {
@@ -54,10 +46,11 @@ export const httpDelete = (path: string) => {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
     },
-  }).then(awaitForJsonResponse);
+  })
+    .then(awaitForJsonResponse)
 };
 
-export const httpAuthorized = (path:string) => {
+export const httpAuthorized = (path: string) => {
   return fetch(`${hosting}${path}`, {
     method: "GET",
     //@ts-ignore
@@ -69,10 +62,14 @@ export const httpAuthorized = (path:string) => {
     .then(awaitForJsonResponse)
     .then((data) => {
       return data;
+    })
+    .catch((e) => {
+      localStorage.removeItem("token");
+      return e;
     });
 };
 
-const awaitForJsonResponse = async (res:any) => {
+const awaitForJsonResponse = async (res: any) => {
   const jsonRes = await res.json();
   if (res.status >= 400) {
     throw jsonRes;
@@ -81,5 +78,8 @@ const awaitForJsonResponse = async (res:any) => {
   }
 };
 
-export const mergeArrays = (arr1:Array<any>, arr2:Array<any>) =>
-  arr1 && arr1.map((obj) => (arr2 && arr2.find((p) => p.todo_id === obj.todo_id)) || obj);
+export const mergeArrays = (arr1: Array<any>, arr2: Array<any>) =>
+  arr1 &&
+  arr1.map(
+    (obj) => (arr2 && arr2.find((p) => p.todo_id === obj.todo_id)) || obj
+  );

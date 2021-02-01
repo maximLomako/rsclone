@@ -1,10 +1,16 @@
+// @ts-nocheck
 import loading from "../../assets/images/loading.svg";
+
+const loaderContainerStyles = {
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+};
 
 const Preloader = () => {
   return (
-    <div className="loading">
-      <img src={loading} className="loading" alt="logo" />
-      <h1>Fetching Data</h1>
+    <div style={loaderContainerStyles}>
+      <img src={loading} alt="logo" />
     </div>
   );
 };
