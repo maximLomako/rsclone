@@ -14,12 +14,13 @@ export type UserInfoType = {
   user_id: string;
   email: string;
   username: string;
+  statusCode: number;
 };
 
 type ActionsType = AuthUserActionType | LogoutUserActionType;
 
 const initialState = {
-  userInfo: {statusCode:401},
+  userInfo: { statusCode: 401 },
 };
 export const authReducer = (
   state = initialState,
@@ -56,6 +57,6 @@ export const setUserInfoAC = (userInfo: UserInfoType): AuthUserActionType => {
 export const logoutUserAC = (): LogoutUserActionType => {
   return {
     type: "LOGOUT-USER",
-    userInfo: {statusCode:401},
+    userInfo: { statusCode: 401 },
   };
 };

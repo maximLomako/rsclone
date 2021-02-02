@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     height: "11%",
     backgroundColor: theme.palette.primary.main,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },

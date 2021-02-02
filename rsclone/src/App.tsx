@@ -10,8 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { authUserAC, logoutUserAC, UserInfoType } from "./redux/auth-reducer";
 import { DashboardRootState } from "./redux/store";
 import useStyles from "./AppClasses";
-import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Container,
+  Backdrop,
+  useMediaQuery,
+} from "@material-ui/core";
+import Copyright from "./components/Copyright/Copiright";
+import Menu from "./components/Menu/Menu";
+
 import "./App.css";
 
 export type UserInfoStateType = {
@@ -22,6 +32,8 @@ const App = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const appClasses = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const matches = useMediaQuery("(min-width:600px)");
   const userInfo = useSelector<DashboardRootState, UserInfoStateType>(
     (state) => state.userInfo
   );
@@ -30,6 +42,13 @@ const App = () => {
     dispatch(logoutUserAC());
     localStorage.removeItem("token");
     history.push("/home");
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -44,22 +63,31 @@ const App = () => {
       <AppBar className={appClasses.header} position="static">
         <Toolbar className={appClasses.toolbar}>
           <div className="left-menu">
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              className={appClasses.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <NavLink to={"/home"} className={appClasses.link}>
-              <Typography variant="h6">
-                rsCloneTrello
-              </Typography>
-            </NavLink>
-            <NavLink className={appClasses.link} to={"/dashboard"}>
-              Dashboard
-            </NavLink>
+            {!matches ? (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                className={appClasses.menuButton}
+                onClick={handleToggle}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : (
+              <></>
+            )}
+            {matches ? (
+              <>
+                <NavLink to={"/home"} className={appClasses.link}>
+                  <Typography variant="h6">rsCloneTrello</Typography>
+                </NavLink>
+                <NavLink className={appClasses.link} to={"/dashboard"}>
+                  Dashboard
+                </NavLink>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="right-menu">
             {userInfo.userInfo.statusCode !== 200 ? (
@@ -89,14 +117,18 @@ const App = () => {
       </Container>
       <footer className={appClasses.footer}>
         <Container className={appClasses.footerContainer} maxWidth="sm">
-          <a href="https://rs.school/js/">
-            <img
-              className="footer__logo-img"
-              src="https://rs.school/images/rs_school_js.svg"
-              alt="Rolling Scopes"
-            />
-          </a>
-          <span>2021</span>
+          {matches ? (
+            <a href="https://rs.school/js/">
+              <img
+                className="footer__logo-img"
+                src="https://rs.school/images/rs_school_js.svg"
+                alt="Rolling Scopes"
+              />
+            </a>
+          ) : (
+            <></>
+          )}
+          <Copyright></Copyright>
           <div className="footer__authors">
             <p>Created by:</p>
             <ul className="footer__authors-list">
@@ -113,6 +145,16 @@ const App = () => {
           </div>
         </Container>
       </footer>
+      <Backdrop
+        className={appClasses.backdrop}
+        open={open}
+        onClick={handleClose}
+      />
+      {open ? (
+        <Menu handleClose={handleClose}></Menu>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

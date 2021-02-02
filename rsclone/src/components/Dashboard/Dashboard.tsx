@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { TasksType } from "../Todolist/Todolist";
 import Todolist from "../Todolist/Todolist";
@@ -9,6 +10,10 @@ import { logoutUserAC } from "../../redux/auth-reducer";
 import Preloader from "../Preloader/Preloader";
 import useStyles from "./DashboardClasses";
 import Typography from "@material-ui/core/Typography";
+import { DashboardRootState } from "../../redux/store";
+import { UserInfoStateType } from "../../App";
+import { useSelector } from "react-redux";
+
 import {
   httpGet,
   httpPost,
@@ -33,6 +38,9 @@ const Dashboard = () => {
   const [todolists, setTodolists] = useState<Array<TodolistsType>>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const userInfo = useSelector<DashboardRootState, UserInfoStateType>(
+    (state) => state.userInfo
+  );
   const dispatch = useDispatch();
   const history = useHistory();
   const dashboardClasses = useStyles();
@@ -101,12 +109,9 @@ const Dashboard = () => {
     setIsFetching(true);
     httpGet("/todos")
       .then((post) => {
-        //@ts-ignore
         setTodolists(post);
       })
-      //@ts-ignore
       .catch((error) => {
-        //@ts-ignore
         if (error.statusCode === 403) {
           setMessage("Login or Registrate for use dashboard");
           dispatch(logoutUserAC());
@@ -114,7 +119,6 @@ const Dashboard = () => {
           setMessage("Server error, please try later");
         }
       })
-      //@ts-ignore
       .finally(() => setIsFetching(false));
   }, [history, dispatch]);
 
@@ -122,7 +126,7 @@ const Dashboard = () => {
     <Preloader />
   ) : (
     <div className={dashboardClasses.dashboard}>
-      {todolists.length > 0 ? (
+      {userInfo.userInfo.statusCode === 200 ? (
         <Grid className={dashboardClasses.addForm} container>
           <AddItemForm addItem={addTodolist} />
         </Grid>
