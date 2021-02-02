@@ -15,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "79%",
     display: "flex",
     flexGrow: 1,
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   footer: {
     padding: 0,
@@ -23,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
+    color: "#fff",
   },
   menuButton: {
     marginRight: theme.spacing(2),

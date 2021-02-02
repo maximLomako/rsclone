@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "underline",
     padding: 0,
   },
+  container: {
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    color: "#333",
+    backdropFilter: "blur(3px)",
+    boxShadow: "2px 2px 10px 1px rgba(0, 0, 0, 0.75)",
+  },
 }));
 
 export default useStyles;

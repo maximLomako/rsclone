@@ -22,7 +22,7 @@ const Registration = () => {
   }
   
   return (
-    <Container maxWidth="xs">
+    <Container className={registrationClasses.container} maxWidth="xs">
       <CssBaseline />
       <div className={registrationClasses.paper}>
         <Avatar className={registrationClasses.avatar}>

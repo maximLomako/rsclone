@@ -4,7 +4,9 @@ import loading from "../../assets/images/loading.svg";
 const loaderContainerStyles = {
   display: "flex",
   justifyContent: "center",
-  width: "100%",
+  width: "20vh",
+  alignSelf: "center",
+  margin: "0 auto",
 };
 
 const Preloader = () => {
