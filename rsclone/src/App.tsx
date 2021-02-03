@@ -4,7 +4,7 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Home from "./components/Home/Home";
 import Dashboard from "./components/Dashboard/Dashboard";
-import { NavLink, Route, useHistory, HashRouter } from "react-router-dom";
+import { NavLink, Route, useHistory} from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { authUserAC, logoutUserAC, UserInfoType } from "./redux/auth-reducer";
@@ -81,6 +81,7 @@ const App = () => {
                 <NavLink to={"/home"} className={appClasses.link}>
                   <Typography variant="h6">rsCloneTrello</Typography>
                 </NavLink>
+
                 <NavLink className={appClasses.link} to={"/dashboard"}>
                   Dashboard
                 </NavLink>
@@ -106,16 +107,14 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <Container className={appClasses.main} component="main">
-        <HashRouter>
-          <Route color="inherit" path={"/login"} component={Login} />
-          <Route color="inherit" path={"/dashboard"} component={Dashboard} />
-          <Route color="inherit" path={"/home"} component={Home} />
-          <Route
-            color="inherit"
-            path={"/registration"}
-            component={Registration}
-          />
-        </HashRouter>
+        <Route color="inherit" path={"/login"} component={Login} />
+        <Route color="inherit" path={"/dashboard"} component={Dashboard} />
+        <Route color="inherit" path={"/home"} component={Home} />
+        <Route
+          color="inherit"
+          path={"/registration"}
+          component={Registration}
+        />
       </Container>
       <footer className={appClasses.footer}>
         <Container className={appClasses.footerContainer} maxWidth="sm">

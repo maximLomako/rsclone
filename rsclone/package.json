@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
-  "homepage": "https://blinkoliver.github.io/trelloClone",
+  "name": "taskade",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://blinkoliver.github.io/trelloClone",
   "license": "UNLICENSED",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
