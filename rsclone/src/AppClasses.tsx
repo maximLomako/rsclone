@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     margin: 0,
     maxWidth: "2048px",
-    minHeight: "80%",
+    minHeight: "79%",
     display: "flex",
     flexGrow: 1,
     backgroundImage: "url(https://source.unsplash.com/random)",
@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: 0,
-    height: "10%",
-    minHeight: "90px",
+    height: "initial",
     backgroundColor: theme.palette.primary.main,
   },
   backdrop: {

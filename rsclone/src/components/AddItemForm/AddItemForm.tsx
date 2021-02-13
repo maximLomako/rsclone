@@ -34,7 +34,7 @@ export const AddItemForm: React.FC<AddItemFormPropsTYpe> = (props) => {
     setNewTaskTitle("");
   };
   return (
-    <div style={{marginBottom:"10px"}}>
+    <div>
       <TextField
         className={addItemFormClasses.textField}
         variant={"outlined"}

@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { authUserAC, logoutUserAC, UserInfoType } from "./redux/auth-reducer";
 import { DashboardRootState } from "./redux/store";
 import useStyles from "./AppClasses";
-import logo from "./assets/images/logo.svg"
 import {
   AppBar,
   IconButton,
   Toolbar,
+  Typography,
   Container,
   Backdrop,
   useMediaQuery,
@@ -79,8 +79,9 @@ const App = () => {
             {matches ? (
               <>
                 <NavLink to={"/home"} className={appClasses.link}>
-                  <img src={logo} alt="logo" />
+                  <Typography variant="h6">rsCloneTrello</Typography>
                 </NavLink>
+
                 <NavLink className={appClasses.link} to={"/dashboard"}>
                   Dashboard
                 </NavLink>

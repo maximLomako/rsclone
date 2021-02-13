@@ -12,7 +12,7 @@ const loaderContainerStyles = {
 const Preloader = () => {
   return (
     <div style={loaderContainerStyles}>
-      <img src={loading} alt="loading" />
+      <img src={loading} alt="logo" />
     </div>
   );
 };

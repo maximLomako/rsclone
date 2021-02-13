@@ -30,9 +30,8 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
     filter,
     tasks,
     changeTodolist,
-    handleModalOpen,
+    removeTodolist,
   } = props;
-
   let tasksArr: Array<TasksType> = JSON.parse(tasks);
   let renderTasks = [];
   switch (filter) {
@@ -83,21 +82,17 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
   };
 
   const changeTitle = (newTitle: any) => {
-    changeTodolist(todo_id, { title: newTitle });
+    changeTodolist(todo_id, newTitle);
   };
-  
   return (
     <div>
       <h3>
         <EditableSpan title={title} onChange={changeTitle} />
-        <IconButton
-          aria-label="delete"
-          onClick={() => handleModalOpen(todo_id)}
-        >
+        <IconButton aria-label="delete" onClick={() => removeTodolist(todo_id)}>
           <Delete fontSize="small" />
         </IconButton>
       </h3>
-      <AddItemForm addItem={addNewTask}/>
+      <AddItemForm addItem={addNewTask} />
       <div>
         {renderTasks.map((t) => {
           return (
@@ -143,4 +138,4 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
     </div>
   );
 };
-export default Todolist;
+export default Todolist

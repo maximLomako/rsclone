@@ -55,6 +55,7 @@ const RegistrationForm = () => {
           setMessage(post.reason);
           setFetchError(true);
         }
+        console.log(post);
       })
       .catch(() => setFetchError(true))
       .finally(() => setIsFetching(false));
