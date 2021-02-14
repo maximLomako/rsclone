@@ -11,11 +11,11 @@ const Home = () => {
       <Grid item xs={12} sm={12} md={12} className={homeClasses.image}>
         <div className={homeClasses.title}>
           <Typography component="h1" variant="h3" className = {homeClasses.typography}>
-            RSCloneTrello: organize anything!
+            CloneTaskade: organize anything!
           </Typography>
           <Typography component="h4" variant="h6" className = {homeClasses.typography}>
             Infinitely flexible. Incredibly easy to use. It's free.
-            RSCloneTrello keeps track of everything, from the big picture to the
+            CloneTaskade keeps track of everything, from the big picture to the
             minute details.
           </Typography>
         </div>

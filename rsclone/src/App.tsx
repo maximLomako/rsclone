@@ -4,7 +4,7 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Home from "./components/Home/Home";
 import Dashboard from "./components/Dashboard/Dashboard";
-import { NavLink, Route, useHistory} from "react-router-dom";
+import { NavLink, Route, useHistory } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { authUserAC, logoutUserAC, UserInfoType } from "./redux/auth-reducer";
@@ -14,15 +14,14 @@ import {
   AppBar,
   IconButton,
   Toolbar,
-  Typography,
   Container,
   Backdrop,
   useMediaQuery,
 } from "@material-ui/core";
 import Copyright from "./components/Copyright/Copiright";
 import Menu from "./components/Menu/Menu";
-
 import "./App.css";
+import logo from "./assets/images/logo.svg";
 
 export type UserInfoStateType = {
   [key: string]: Array<UserInfoType>;
@@ -79,7 +78,7 @@ const App = () => {
             {matches ? (
               <>
                 <NavLink to={"/home"} className={appClasses.link}>
-                  <Typography variant="h6">rsCloneTrello</Typography>
+                  <img src={logo} alt="logo" />
                 </NavLink>
 
                 <NavLink className={appClasses.link} to={"/dashboard"}>
