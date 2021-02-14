@@ -8,6 +8,7 @@ import { Button, Checkbox, IconButton } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import { green } from "@material-ui/core/colors";
 import { v1 } from "uuid";
+import UploadImg from "../UploadImg/UploadImg";
 
 export type TasksType = {
   task_id: string;
@@ -109,6 +110,7 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
               >
                 <Delete fontSize="small" style={{ color: green[500] }} />
               </IconButton>
+              {t.isDone === false ? <UploadImg /> : <></>}
             </div>
           );
         })}
@@ -138,4 +140,4 @@ const Todolist: React.FC<TodolistPropsType> = (props) => {
     </div>
   );
 };
-export default Todolist
+export default Todolist;
