@@ -1,0 +1,27 @@
+a {
+  color: inherit;
+  padding: 0 10px;
+}
+footer+div+div a:hover {
+  text-decoration: underline;
+}
+div.left-menu {
+  display: flex;
+}
+div.right-menu {
+  display: flex;
+}
+body div footer > div {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__logo-img {
+  width: 100px;
+  cursor: pointer;
+}
+.footer__authors {
+  display: flex;
+}
+.footer-list {
+  margin-left: 10px;
+}

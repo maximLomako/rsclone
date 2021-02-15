@@ -1,0 +1,6 @@
+.activeFilter {
+    background-color: gold;
+}
+.isDone {
+    opacity: .5;
+}
